@@ -1,12 +1,3 @@
-'use strict';
-
-const express = require("express"),
-    router = express.Router();
-
-router.get('/', (req, res) => {
-    res.json('This is where the data will live!').status(200);
-});
-
 const mongoose = require("mongoose");
 
 mongoose.connect('mongodb://127.0.0.1:27017/test', {
@@ -14,7 +5,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test', {
             useNewUrlParser: true,
 });
 
-const db = mongoose.connection;
+const db = mongoose.connection();
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function() {
     console.log("Hooray! We're connected to mongodb!!!");
@@ -46,16 +37,9 @@ db.once('open', function() {
         fluffy.speak();
     })
 
-    silence.save((err, silence) => {
-        if (err) return console.error(err);
-        fluffy.speak();
-    })
-
     // finds all documents associated with the 'Kitten' model
     Kitten.find((err, kittens) => {
         if (err) return console.error(err);
         console.log(kittens);
     })
 })
-
-module.exports = router;
