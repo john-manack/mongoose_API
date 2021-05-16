@@ -18,5 +18,7 @@ SERVER.listen(PORT, HOSTNAME, () => {
 })
 
 const rootController = require('./routes/index');
+const dataController = require('./routes/data');
 
 app.use('/', rootController);
+app.use('/data', dataController);
